@@ -1,0 +1,15 @@
+load AVLinput.avl
+oper
+m
+mn 0.55
+v 170
+d 0.5505
+
+a c 10.2766
+x
+st AVLaero.dat
+vm AVLload.dat
+fs AVLstrip.dat
+
+
+quit
