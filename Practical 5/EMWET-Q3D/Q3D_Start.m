@@ -17,7 +17,7 @@ AC.Wing.Airfoils   = [0.2171    0.3450    0.2975    0.2685    0.2893  -0.1299   
                   
 AC.Wing.eta = [0;1];  % Spanwise location of the airfoil sections
 
-AC.Visc  = 0;             % 1 for viscous analysis and 0 for inviscid
+AC.Visc  = 1;             % 1 for viscous analysis and 0 for inviscid
 
 % Flight Condition
 AC.Aero.V     = 170;            % flight speed (m/s)
