@@ -31,8 +31,8 @@ c3 = c2 * X(4);
 
 %                x      y     z   chord(m)    twist angle (deg) 
 AC.Wing.Geom = [ x1     y1    0     c1         0;
-                 x2     y2    0     c2         twist(1);
-                 x3     y3    0     c3         twist(2)];
+                 x2     y2    0     c2         X(6)*180/pi;
+                 x3     y3    0     c3         X(7)*180/pi];
 
 % Wing incidence angle (degree)
 AC.Wing.inc  = 0;   
@@ -40,6 +40,7 @@ AC.Wing.inc  = 0;
 % Airfoil coefficients input matrix
 %                    | ->     upper curve coeff.                <-|   | ->       lower curve coeff.       <-| 
 AC.Wing.Airfoils   = [0.2171    0.3450    0.2975    0.2685    0.2893  -0.1299   -0.2388   -0.1635   -0.0476    0.0797;
+                      0.2171    0.3450    0.2975    0.2685    0.2893  -0.1299   -0.2388   -0.1635   -0.0476    0.0797;
                       0.2171    0.3450    0.2975    0.2685    0.2893  -0.1299   -0.2388   -0.1635   -0.0476    0.0797];
                   
 AC.Wing.eta = [0;percentKink;1];  % Spanwise location of the airfoil sections
@@ -53,7 +54,7 @@ AC.Aero.alt   = alt;             % flight altitude (m)
 AC.Aero.M     = M;           % flight Mach number 
 
 % Calculate Reynolds number (based on mean aerodynamic chord)
-AC.Aero.Re    = 1.64e7;        % reynolds number 
+AC.Aero.Re    = 1.64e7;        % reynolds number (bqased on mean aerodynamic chord)
 
 % Calculate the required lift coefficient
 AC.Aero.CL    = 1.048;          % lift coefficient - comment this line to run the code for given alpha%

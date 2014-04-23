@@ -10,8 +10,7 @@
 
 %% Planform geometry
 percentKink = 0.1; % Position of kink relative to wingspan [%]
-twist(1) = 0;    % Linear twist on inner section of the wing [deg]
-twist(2) = 0;    % Linear twist on outer section of the wing [deg]
+twistInner = 0;    % Linear twist on inner section of the wing [rad]
 
 %% Flight condition
 V     = 170;            % flight speed (m/s)
