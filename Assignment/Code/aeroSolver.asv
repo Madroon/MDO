@@ -62,7 +62,7 @@ AC.Wing.inc  = 0;
 AC.Wing.Airfoils   = [X(5:16);
                       X(17:28)];
                   
-AC.Wing.eta = [0;1];  % Spanwise location of the airfoil sections
+AC.Wing.eta = [0;percentKink;1];  % Spanwise location of the airfoil sections
 
 AC.Visc  = visc;             % 1 for viscous analysis and 0 for inviscid
 
@@ -73,13 +73,13 @@ AC.Aero.alt   = flightCondition.alt;         % flight altitude (m)
 AC.Aero.M     = flightCondition.M;           % flight Mach number 
 
 % Calculate Reynolds number (based on mean aerodynamic chord)
-
 S = 2*(((c(1)-c(2)/2)+c(2))*y(2) + ((c(3)-c(2)/2)/2)*(y(3)-y(2)));
 
+%MAC = (2/3)*((c(1)*((1+(c(2)/c(1))+(c(2)/c(1))^2)/(1+(c(2)/c(1)))))+(c(2)*((1+(c(3)/c(2))+(c(3)/c(2))^2)/(1+(c(3)/c(2))))));
 fullTaper = c(3)/c(1);
 MAC = c(1) * (2/3) * ((1 + fullTaper + fullTaper^2)/(1 + fullTaper));
-
 AC.Aero.Re    = AC.Aero.V * MAC / (1.460*10^(-5));        % reynolds number 
+%AC.Aero.Re    = 1.64e7;
 
 % Calculate the required lift coefficient
 MTOW = (Wconst + Wwing + Wfuel);
@@ -91,7 +91,11 @@ else
     AC.Aero.CL = (2*MTOW)/(AC.Aero.rho * (AC.Aero.V^2) * S); % lift coefficient - comment this line to run the code for given alpha% 
 end
 
+%AC.Aero.Alpha = 2;             % angle of attack -  comment this line to run the code for given cl 
+
 %% Run Q3D and pass back results
+
 aeroResults = Q3D_solver(AC);
+
 
 end

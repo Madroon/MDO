@@ -65,9 +65,10 @@ flightCondition.rho = rho;          % air density  (kg/m3)
 flightCondition.alt = alt;         % flight altitude (m)
 flightCondition.M   = Mmax;           % flight Mach number 
 flightCondition.loadCondition = 1;                  % Specifies whether flown at max loading or not. 0 is not, 1 is
-
+disp('
+tic;
 [aeroMaxLoadResults] = aeroSolver(X, visc, flightCondition);
-
+toc;
 % extract the distributions
 load.L = aeroMaxLoadResults.Wing.ccl;
 load.T = aeroMaxLoadResults.Wing.cm_c4;
@@ -84,7 +85,9 @@ load.Lstar = BezierCurve(length(load.Y), [load.ycontrolpoints' load.LPoints']);
 load.Tstar = BezierCurve(length(load.Y), [load.ycontrolpoints' load.TPoints']);
 
 %% Run structural solver -> Wstr,wing
+
 [Wwing] = strucSolver(X);
+
 %% Calculate performance characteristics -> Wfuel
 
 % Still needs to take into account the different drag contribution of the

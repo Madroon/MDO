@@ -10,14 +10,14 @@ clc;
 %% Define function and constraints
 
 % 
-Au = [1 1 1 1 1];         %upper-surface Bernstein coefficients
-Al = [1 1 1 1 1];    %lower surface Bernstein coefficients
+Au = [1 1 1 1 1 1];         %upper-surface Bernstein coefficients
+Al = [1 1 1 1 1 1];    %lower surface Bernstein coefficients
 A0 = [Au Al];
 
 % Set the options for the optimisation
 options = optimset('LargeScale','off');
 options = optimset(options,'Display','iter');
-%options = optimset(options,'TolFun', 10e-10);
+options = optimset(options,'TolFun', 1e-10);
 
 % Optimise fit
 [Aop, fval, exitflag, output] = fminunc(@myfun2,A0,options);
@@ -31,8 +31,8 @@ load('withcomb.mat');
 X = airfoil(:,1);      
 
 % Take apart A
-Au = Aop(1:5);
-Al = Aop(6:10);
+Au = Aop(1:6);
+Al = Aop(7:12);
 
 % Evaluate CST thingamajig
 [Xtu,Xtl,C,Thu,Thl,Cm] = D_airfoil2(Au,Al,X);

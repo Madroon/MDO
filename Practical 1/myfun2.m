@@ -6,8 +6,8 @@ function F = myfun2(A)
 load('withcomb.mat');
 
 % Take apart A
-Au = A(1:5);
-Al = A(6:10);
+Au = A(1:6);
+Al = A(7:12);
 
 %% Upper airfoil
 

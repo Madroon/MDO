@@ -59,7 +59,9 @@ c(1) = cRoot;
 c(2) = c(1) - y(2)*(tan(sweep) + tan(0.0001*pi/180));
 c(3) = c(2) * taper;
 
-S = 2*(((c(1)-c(2)/2)+c(2))*y(2) + ((c(3)-c(2)/2)/2)*(y(3)-y(2)));
+S = ((c(1)-c(2)/2)+c(2))*y(2) + ((c(3)-c(2)/2)/2)*(y(3)-y(2));
+MAC = (2/3)*((c(1)*((1+(c(2)/c(1))+(c(2)/c(1))^2)/(1+(c(2)/c(1)))))+(c(2)*((1+(c(3)/c(2))+(c(3)/c(2))^2)/(1+(c(3)/c(2))))));
+q = 0.5*rho*Vmax^2;   % dynamic pressure
 
 % generate .dat file for the root airfoil
 
@@ -134,7 +136,7 @@ fprintf(fid,'%g %g %g %g\n',Material.Wing.RearSpar.E,Material.Wing.RearSpar.rho,
 fprintf(fid,'%g %g\n',0.96,0.5);
 
 % Display option - 0 don't display on screen, 1 do display
-fprintf(fid,'%g\n',0);
+fprintf(fid,'%g\n',1);
 
 % Close the file
 fclose(fid);
@@ -146,6 +148,9 @@ load.Y = linspace(0,1,14);
 load.ycontrolpoints = linspace(0,1,6);
 load.L = BezierCurve(length(load.Y), [load.ycontrolpoints' load.LPoints']);
 load.T = BezierCurve(length(load.Y), [load.ycontrolpoints' load.TPoints']);
+
+% Transform distributions to actual forces and moments
+load.L = load.L * q;
 
 fid = fopen([filename '.load'], 'wt');  
 

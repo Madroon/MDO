@@ -40,3 +40,5 @@ Z =  S.*C(N1,N2,tx);            %multiply Shape-function with Class-function (ch
 % ---------------------------
 figure(1)
 mesh(X,Y,Z);axis equal; xlabel('X'); ylabel('Y'); zlabel('Z')
+figure(2)
+mesh(tx,ty,Z);

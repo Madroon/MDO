@@ -26,6 +26,6 @@
 function [F] = Solver(X)
 %% Calculate objective function and pass back to Main
 
-F = Wconst + X(41) + X(42);
+F = (1 + X(41) + X(42))/3;
 
 end

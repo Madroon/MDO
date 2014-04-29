@@ -7,7 +7,8 @@
 %X-ordinates)
 function[Xtu,Xtl,C,Thu,Thl,Cm] = D_airfoil2(Au,Al,X)
 
-x = X(:,1);
+%x = X(:,1);
+x = X;
 
 N1 = 0.5;   %Class function N1
 N2 = 1;     %Class function N2

@@ -33,11 +33,11 @@ lb(2) = 5; ub(2) = 15;           % Croot
 lb(3) = 0.1; ub(3) = 1.0;           % Taper
 lb(4) = 10; ub(4) = 45;           % Sweep angle
 % - - - - - - - - - - - - - - - - - - Airfoils
-lb( 5:16) = -1.0; ub( 5:16) = 1.1;   % Airfoil at root
-lb(17:28) = -1.0; ub(17:28) = 1.1;   % Airfoil at tip
+lb( 5:16) = -1.0; ub( 5:16) = 1.0;   % Airfoil at root
+lb(17:28) = -1.0; ub(17:28) = 1.0;   % Airfoil at tip
 % - - - - - - - - - - - - - - - - - - Surrogate variables
-lb(29:34) = 1e4; ub(29:34) = 10e4;   % Lift distribution
-lb(35:40) = -1e4; ub(35:40) = -16e4;   % Pitching moment distribution
+lb(29:34) = 2e4; ub(29:34) = 10e4;   % Lift distribution
+lb(35:40) = -1e6; ub(35:40) = -2e6;   % Pitching moment distribution
 lb(41) = 1e4; ub(41) = 3e4;         % Wing weight star
 lb(42) = 1e5; ub(42) = 4e5;         % Fuel weight star
 % - - - - - - - - - - - - - - - - - - Scale the bounds
@@ -49,17 +49,11 @@ ub(5:28) = ub(5:28).*I(5:28);
 
 %% Set up the options
 options = optimset('Display','iter');
-options = optimset(options,'Algorithm', 'sqp');
-options = optimset(options,'DiffMinChange', 0.01);
-options = optimset(options,'DiffMaxChange', 0.1);
+options = optimset(options,'Algorithm', 'interior-point');
+options = optimset(options,'DiffMinChange', 0.1);
 options = optimset(options,'TolFun',1e-4);
-options = optimset(options,'TolCon',1e-4);
-options = optimset(options,'TolX',1e-4);
-options = optimset(options,'PlotFcns',{@optimplotx,@optimplotfval,@optimplotconstrviolation});
-
 
 %% Run the optimizer
-tic;
-[X,fval,exitflag,output, lambda, grad, hessian] = fmincon(@Solver,X0,[],[],[],[],lb,ub,@Constraints,options);
-toc;
+[X,fval,exitflag,output, lambda] = fmincon(@Solver,X0,[],[],[],[],lb,ub,@Constraints,options);
+
 %% Plot the results
